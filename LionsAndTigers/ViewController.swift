@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     var myTigers:[Tiger] = []
     
+    var currentIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,7 +29,16 @@ class ViewController: UIViewController {
         myTiger.age = 4
         myTiger.image = UIImage(named: "Roscoe.jpg")
         
+        myTiger.age = myTiger.ageInTigerYearsFromAge()
+        
+//        myTiger.chuff()
+        
         myTigers.append(myTiger)
+        
+        myImageView.image = myTigers[0].image
+        nameLabel.text = myTigers[0].name
+        ageLabel.text = "\(myTigers[0].age)"
+        breedLabel.text = myTigers[0].breed
         
         var secondTiger = Tiger()
         secondTiger.name = "Tigress"
@@ -51,8 +62,7 @@ class ViewController: UIViewController {
 
         println("My tiger's name is \(myTiger.name), its' age is \(myTiger.age), its breed is \(myTiger.breed) and its' image is \(myTiger.image)")
         
-        
-        
+        myTiger.chuffANumberOfTimes(3, isLoud: false)        
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +72,15 @@ class ViewController: UIViewController {
 
     @IBAction func nextBarButtonItemPressed(sender: UIBarButtonItem) {
         
-        let randomIndex = Int(arc4random_uniform(UInt32(myTigers.count)))
+        
+        var randomIndex: Int
+        
+        do {
+            randomIndex = Int(arc4random_uniform(UInt32(myTigers.count)))
+        } while currentIndex == randomIndex
+        
+        currentIndex = randomIndex
+        
         let tiger = myTigers[randomIndex]
         
 //        myImageView.image = tiger.image
@@ -70,7 +88,7 @@ class ViewController: UIViewController {
 //        ageLabel.text = "\(tiger.age)"
 //        breedLabel.text = tiger.breed
         
-        UIView.transitionWithView(self.view, duration: 2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+        UIView.transitionWithView(self.view, duration: 1, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             
             self.myImageView.image = tiger.image
             self.nameLabel.text = tiger.name
