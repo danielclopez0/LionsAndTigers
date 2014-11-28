@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var breedLabel: UILabel!
+    @IBOutlet weak var randomFactLabel: UILabel!
     
     var myTigers:[Tiger] = []
     
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
         nameLabel.text = myTigers[0].name
         ageLabel.text = "\(myTigers[0].age)"
         breedLabel.text = myTigers[0].breed
+        randomFactLabel.text = myTigers[0].randomFact()
         
         var secondTiger = Tiger()
         secondTiger.name = "Tigress"
@@ -92,8 +94,9 @@ class ViewController: UIViewController {
             
             self.myImageView.image = tiger.image
             self.nameLabel.text = tiger.name
-            self.ageLabel.text = "\(tiger.age)"
+            self.ageLabel.text = "\(tiger.ageInTigerYearsFromAge())"
             self.breedLabel.text = tiger.breed
+            self.randomFactLabel.text = tiger.randomFact()
             
             }, completion: {
                 (finished: Bool)-> () in
